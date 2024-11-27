@@ -1,0 +1,36 @@
+name: Python Test Workflow
+
+on:
+  push:
+    branches:
+      - main
+      - test
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.x
+
+    - name: Install dependencies
+      run: pip install pytest
+
+    - name: Run tests
+      run: |
+        echo "nr1 = 5" > test_script.py
+        echo "nr2 = 7" >> test_script.py
+        echo "sum = nr1 + nr2" >> test_script.py
+        echo "print(sum)" >> test_script.py
+        echo "nr1 = 6" >> test_script.py
+        echo "nr2 = 7" >> test_script.py
+        echo "sum = nr1 * nr2" >> test_script.py
+        echo "print(sum)" >> test_script.py
+        python test_script.py
